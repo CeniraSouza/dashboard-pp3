@@ -45,7 +45,7 @@ function renderNews(articles = [], mount = newsMount) {
     li.classList.add('collection-item', 'avatar');
 
     li.innerHTML = `
-      <img src="${article.urlToImage}" alt="" class="circle">
+      <img src="${article.image}" alt="" class="circle">
       <a href="${article.url}"><span class="title">${article.title}</span></a>
     `;
 
@@ -95,8 +95,9 @@ function renderWeather(report = [], mount = weatherMount) {
     li.classList.add('collection-item', 'avatar');
 
     li.innerHTML = `
-      <img src="${repo.urlToImage}" alt="" class="circle">
-      <a href="${repo.url}"><span class="title">${repo.title}</span></a>
+    <h2>Current Temperature in London</h2>
+      <p>${current.feelslike_c}</p>
+      <p>${current.temp_c}</p>
     `;
 
     ul.append(li);
