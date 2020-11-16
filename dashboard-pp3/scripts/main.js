@@ -62,10 +62,10 @@ async function getNews(handler = renderNews) {
     console.log('response', response);
 
     // handle bad responses
-    if (!response.status >= 200 && response.status < 300) throw response;
-    const articles = await response.json();
-    console.log('articles', articles);
-    handler(articles);
+    if (!response.status < 200 && response.status >= 300) throw response;
+    const data = await response.json();
+    console.log('data', data);
+    handler(data.articles);
   } catch (err) {
     console.log(err);
   }
@@ -81,30 +81,24 @@ const WEATHER_API_URL = `https://api.weatherapi.com/v1/current.json?key=${WEATHE
 const weatherMount = document.getElementById('weather-mount');
 
 function renderWeather(report = [], mount = weatherMount) {
-  if (!report.length) {
+  if (!report) {
     weatherMount.innerHTML = 'No weather';
     return;
   }
 
-  weatherMount.innerHTML = '';
-  const ul = document.createElement('ul');
-  ul.classList.add('collection');
-
-  for (const repo of report) {
-    const li = document.createElement('li');
-    li.classList.add('collection-item', 'avatar');
-
-    li.innerHTML = `
-    <h2>Current Temperature in London</h2>
-      <p>${current.feelslike_c}</p>
-      <p>${current.temp_c}</p>
+  const HTML = `
+  <h2>${report.location.name}, ${report.location.country}</h2>
+  <dl>
+    <dt>Temperature</dt>
+    <dd>${report.current.temp_c}&degC</dd>
+    <dt>Temperature - feels like</dt>
+    <dd>${report.current.feelslike_c}&degC</dd>
+    <dt>Wind</dt>
+    <dd>${report.current.wind_dir} at ${report.current.wind_mph} mph</dd>
+  </dl>
     `;
 
-    ul.append(li);
-  }
-
-  weatherMount.innerHTML = '';
-  weatherMount.append(ul);
+  weatherMount.innerHTML = HTML;
 }
 
 async function getWeather(handler = renderWeather) {
@@ -113,7 +107,7 @@ async function getWeather(handler = renderWeather) {
     console.log('response', response);
 
     // handle bad responses
-    if (!response.status >= 200 && response.status < 300) throw response;
+    if (!response.status < 200 && response.status >= 300) throw response;
     const report = await response.json();
     console.log('report', report);
     handler(report);

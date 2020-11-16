@@ -2,11 +2,16 @@ body {
   min-height: 100vh;
   text-align: center;
 }
+
+.brand-logo.center {
+  font-size: 3rem;
+}
+
+.mount.weather {
+  display: block;
+}
+
 .page-footer {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
   margin-top: 50px;
   padding-block-start: 0;
 }
@@ -15,11 +20,14 @@ body {
 .time-display {
   display: block;
 }
+
+h2,
 .date-display {
-  font-size: 3rem;
-}
-.time-display {
   font-size: 2rem;
+}
+
+.time-display {
+  font-size: 1.5rem;
 }
 
 .mount {
@@ -30,3 +38,4 @@ body {
   align-items: center;
   justify-content: center;
 }
+
